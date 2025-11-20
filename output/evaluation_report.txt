@@ -1,0 +1,3 @@
+F1-Score Macro: 0.8778
+Modularity Score (Sampled): 0.9000
+Avg Uniqueness Ratio: 100.00%

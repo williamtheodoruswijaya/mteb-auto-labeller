@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/Hendra%20Wijaya/OneDrive/Documents/Binus/Semester%205/text-mining/mteb-auto-labeller/workflow/mlruns/0/3e77ac9c21d545d688cd7092af79f97c/artifacts
+end_time: 1763664153466
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3e77ac9c21d545d688cd7092af79f97c
+run_name: checkpoints/model_1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763657575014
+status: 3
+tags: []
+user_id: Hendra Wijaya
