@@ -37,9 +37,9 @@ Transform the text into numerical vectors (embeddings) that represent semantic m
 Build a graph representing semantic relationships between reports.
 
 * **Pairwise Cosine Similarity:** Compute similarity between all report embeddings:
-  [
-  \cos(\theta)=\frac{A\cdot B}{|A||B|}
-  ]
+    
+  $$ \cos(\theta)=\frac{A\cdot B}{|A||B|} $$
+    
 * **Thresholding:** If similarity exceeds a chosen threshold (e.g., >0.85), connect the reports with an *edge*.
 * **Output:** A graph where **nodes** = individual reports and **edges** = semantic similarity connections.
 
