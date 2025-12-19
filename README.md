@@ -2,7 +2,7 @@
 
 ## 📌 Project Background
 
-In modern *Smart City* systems, thousands of citizen reports are submitted daily. These reports are currently grouped into static categories (e.g., “Road”, “Tree”, “Disturbance”). However, such categories are often too broad and fail to capture specific emerging issues (for example, a spike in “cable theft” cases that all fall under the generic “Disturbance” label).
+In modern *Smart City* systems, thousands of citizen reports are submitted daily. These reports are currently grouped into static categories (e.g., "Road", "Tree", "Disturbance"). However, such categories are often too broad and fail to capture specific emerging issues (for example, a spike in “cable theft” cases that all fall under the generic "Disturbance" label).
 
 This project aims to automatically discover **latent topics** without manual labels (*unsupervised*). The approach adapts concepts from **Lexical Mutations Network** and **Self-Supervised Learning** to detect clusters of semantically similar issues, even when they use different word choices.
 
@@ -29,19 +29,21 @@ Cleaning and preparing the textual content (`content` column) to reduce noise:
 
 Transform the text into numerical vectors (embeddings) that represent semantic meaning.
 
-* **Model:** `intfloat/multilingual-e5-base`
-* **Why SSL?** The E5 model is trained using *weakly-supervised contrastive pre-training* on billions of text pairs. It understands that phrases like “jalan bolong” and “damaged asphalt” express similar meaning without explicit labels.
+* **Model:** `indobenchmark/indobert-base-p1`
+* **Why IndoBERT?** IndoBERT is a language model trained specifically on large-scale Indonesian corpora. It is capable of understanding both formal and informal language variations, including everyday expressions commonly found in citizen reports. Through fine-tuning with a **self-supervised** learning approach (TSDAE), IndoBERT produces contextual sentence embeddings that effectively capture semantic meaning. As a result, reports describing similar issues—despite differences in wording or sentence structure—are mapped to nearby representations in the vector space, enabling semantic grouping without requiring explicit labeled data.
 
 #### 3. Semantic Graph Construction
 
-Build a graph representing semantic relationships between reports.
+Build a graph representing semantic relationships between reports using a k-Nearest Neighbors (k-NN) graph.
 
 * **Pairwise Cosine Similarity:** Compute similarity between all report embeddings:
     
   $$ \cos(\theta)=\frac{A\cdot B}{|A||B|} $$
-    
+
+* **k-Nearest Neighbors Selection:** For each report, identify its top-k most similar reports based on cosine similarity.
+* **Graph Construction:** Create an undirected graph where `Nodes` represent individual reports, `Edges` connect each report to its k nearest neighbors, and `Edge weights` correspond to cosine similarity scores
 * **Thresholding:** If similarity exceeds a chosen threshold (e.g., >0.85), connect the reports with an *edge*.
-* **Output:** A graph where **nodes** = individual reports and **edges** = semantic similarity connections.
+* **Output:** A semantic similarity graph that preserves local neighborhood structure and ensures each report is meaningfully connected, forming a robust basis for downstream community detection.
 
 #### 4. Unsupervised Clustering (Community Detection)
 
@@ -75,3 +77,27 @@ The dataset consists of citizen complaint records (CRM) with key fields:
 * `category` — initial coarse category (baseline)
 * `created_at` — timestamp for trend analysis
 * `latitude` & `longitude` — event location
+
+## ▶️ How to Run the Notebook
+
+Follow these steps to reproduce the experiments and results in this project:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/williamtheodoruswijaya/mteb-auto-labeller.git
+cd mteb-auto-labeller
+```
+
+### 2. Install required dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Run the notebook
+```bash
+jupyter notebook
+```
+
+Or type `code .` in the terminal to open the notebook in Visual Studio Code
+The notebook file is located at `./workflow/mteb_autolabeller_V2.ipynb`
+The output files are located at `./workflow/output` folder
