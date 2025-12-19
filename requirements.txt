@@ -1,0 +1,16 @@
+numpy
+pandas
+scikit-learn
+torch
+sentence-transformers
+transformers
+networkx
+python-louvain
+gensim
+nltk
+tqdm
+matplotlib
+seaborn
+jupyter
+Sastrawi
+emoji
