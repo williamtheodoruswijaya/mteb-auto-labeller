@@ -98,6 +98,6 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-Or type `code .` in the terminal to open the notebook in Visual Studio Code
-The notebook file is located at `./workflow/mteb_autolabeller_V2.ipynb`
+Or type `code .` in the terminal to open the notebook in Visual Studio Code  
+The notebook file is located at `./workflow/mteb_autolabeller_V2.ipynb`  
 The output files are located at `./workflow/output` folder
